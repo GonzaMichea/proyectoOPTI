@@ -42,8 +42,8 @@ def generar_restricciones_profesor(num_profesores, min_bloques=7, max_bloques=21
 
 
 # Generar instancias específicas para el grupo 9 (B=1, A=1)
-num_asignaturas = 50  # Número de asignaturas en tu caso
-num_salas = 5  # Número de salas
+num_asignaturas = 43 # Número de asignaturas en tu caso
+num_salas = 3  # Número de salas
 
 asignaturas = generar_asignaturas_b1(num_asignaturas)
 restricciones_profesores = generar_restricciones_profesor(10)  # 10 profesores
