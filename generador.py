@@ -31,13 +31,12 @@ def generar_salas_a1(num_salas):
         capacidades.append(capacidad)
     return capacidades
 
-def generar_restricciones_profesor(num_asignaturas, cant_profes):
+def generar_restricciones_profesor(cant_profes):
     restricciones = []
     
     for i in range(cant_profes):
         n_bloques = random.randint(7,21) #Cantidad de bloques restringidos
-        print(n_bloques)
-        lista = [1] * 35
+        lista = [1] * 35 #35 = 7*5 bloques por dias
         posiciones = random.sample(range(35), n_bloques)
 
         for posicion in posiciones:
@@ -47,13 +46,12 @@ def generar_restricciones_profesor(num_asignaturas, cant_profes):
         
     return restricciones
 
-def guardar_instancia(num_asignaturas, num_salas, num_bloques,
-                             prioridades, bloques_necesarios, num_alumnos, capacidades, restricciones,
-                             nombre_archivo="instancia.dzn"):
+def guardar_instancia(num_asignaturas, num_salas, prioridades, bloques_necesarios, num_alumnos, capacidades, restricciones,
+nombre_archivo="instancia.dzn"):
     with open(nombre_archivo, "w") as f:
         f.write(f"n = {num_asignaturas};\n")
         f.write(f"m = {num_salas};\n")
-        #f.write(f"num_bloques = {num_bloques};\n\n")
+
         
         f.write("p = [")
         f.write(", ".join(str(p) for p in prioridades))
@@ -77,26 +75,14 @@ def guardar_instancia(num_asignaturas, num_salas, num_bloques,
 
 
 # Generar instancias específicas
-num_asignaturas = 2  # Equivale al n de profes
-num_salas = 20
-num_bloques = 35  # 7 bloques por día * 5 días
+num_asignaturas = int(input("Ingrese número de asignaturas: ")) # Equivale al n de profes
+num_salas = int(input("Ingrese número de salas: "))
+num_bloques = 35  # 7 bloques por día * 5 días no cambia
 
 prioridades, bloques_necesarios, num_alumnos = generar_asignaturas_b1(num_asignaturas)
 capacidades = generar_salas_a1(num_salas)
-restricciones = generar_restricciones_profesor(num_asignaturas, num_asignaturas)
+restricciones = generar_restricciones_profesor(num_asignaturas)
 
-guardar_instancia(num_asignaturas, num_salas, num_bloques, prioridades, bloques_necesarios, num_alumnos, capacidades, restricciones)
+guardar_instancia(num_asignaturas, num_salas, prioridades, bloques_necesarios, num_alumnos, capacidades, restricciones)
 
-# Mostrar un ejemplo de salida
-print(f"n = {num_asignaturas};")
-print(f"m = {num_salas};")
-#print(f"num_bloques = {num_bloques};\n")
-print("p = [") #Prioridad
-print(", ".join(str(p) for p in prioridades), "];")
-print("b = [") #cantidad_bloques
-print(", ".join(str(b) for b in bloques_necesarios), "];")
-print("I = [") #interés
-print(", ".join(str(n) for n in num_alumnos), "];")
-print("c = [") #capacidad de cada sala
-print(", ".join(str(c) for c in capacidades), "];")
-print("r = ",restricciones)
+print("Instancia generada satisfactoriamente")
